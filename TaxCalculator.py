@@ -26,7 +26,7 @@ def incomeTax(income):
     taxBracketPercents = [10/100,12/100,22/100,24/100,32/100,35/100,37/100]; ###SUBJECT TO CHANGE EACH YEAR###
     ###BRACKETS ARE SUBJECT TO CHANGE EACH YEAR###
 
-    taxPerBracket = [0,0,0,0,0,0,0,]
+    taxPerBracket = [0]*totalFedBrakets
     for i in range (0,totalFedBrakets):
         if leftOver >= taxBracketAmounts[i]:
             taxPerBracket[i] = (taxBracketAmounts[i]-taxBracketAmounts[i-1])*taxBracketPercents[i];
@@ -40,7 +40,6 @@ def incomeTax(income):
     totalFedTax = sum(taxPerBracket)
     ###################### FED TAX END ###########################################################################################
     ###################### STATE TAX START #######################################################################################
-    
     MI_TaxRate = 4.25/100
     stateTaxRate = MI_TaxRate
     totalStateTax = income*stateTaxRate;
