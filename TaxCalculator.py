@@ -16,6 +16,7 @@ def incomeTax(income):
     global taxBracketAmounts;
     global totalFedTax;
     global afterFedTax;
+    global incomeLeftOverAfterTaxs;
     standardDeduction = 12400.00; ###SUBJECT TO CHANGE EACH YEAR###
     leftOver = income - standardDeduction;
     
@@ -65,6 +66,6 @@ def incomeTax(income):
     ###################### MEDICARE TAX END ######################################################################################
     ###################### FINAL CALCULATIONS START ##############################################################################
     incomeLeftOverAfterTaxs = income-totalFedTax-totalStateTax-totalSocialTax-totalMedicareTax
-    print(incomeLeftOverAfterTaxs)
     ###################### FINAL CALCULATIONS END ################################################################################
 incomeTax(income)
+print(incomeLeftOverAfterTaxs)
