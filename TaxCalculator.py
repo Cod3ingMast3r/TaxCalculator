@@ -1,18 +1,24 @@
 import numpy as np;
 import datetime as dt;
 global income;
+global todaysDate;
 global currentYear;
+global currentMonth;
+global currentDay;
 #currently assumed not head of househod and filing single and NOT self employed
 #Planning to add the following
     #assuming not head of houshold, later add option for asking if they are head of household
     #add ability to update standard deduction maybe using API or webscrapper on google
-currentYear = 2021;
+todaysDate = dt.date.today()
+print(todaysDate);
+currentYear = todaysDate.year;
+print(currentYear);
+currentMonth = todaysDate.month;
+print(currentMonth);
+currentDay = todaysDate.day;
+print(currentDay);
 
-
-
-
-
-
+###################### Income Input Start ###########################################################################################
 yearOrHour = input("Income By year or Hour: ");
 print( yearOrHour.capitalize());
 
@@ -21,6 +27,7 @@ if yearOrHour.capitalize() == "Year":
 elif yearOrHour.capitalize() == "Hour":
     income = float(input("Put hourly total income here: "));
     hoursPerWeek = float(input("Put hours per week here: "));
+###################### Counts buisnessdays worked Start ###########################################################################################
     setTime = input("Will there be a fixed start and end date? (yes or no): ");
     if setTime.capitalize() == "Yes":
         startYear = int(input("Input start year here (ie: 2021): "));
@@ -44,8 +51,11 @@ elif yearOrHour.capitalize() == "Hour":
         exit;
     else: 
         print("error, yes or no value may have been enetered incorrectly");
+###################### Counts buisnessdays worked End ###########################################################################################
 
 else: print("Error, enter hour or year only")
+###################### Income Input End ###########################################################################################
+
 
 def incomeTax(income):
     if income < 0:
@@ -107,7 +117,7 @@ def incomeTax(income):
     ###################### FINAL CALCULATIONS START ##############################################################################
     incomeLeftOverAfterTaxs = income-totalFedTax-totalStateTax-totalSocialTax-totalMedicareTax
     ###################### FINAL CALCULATIONS END ################################################################################
-incomeTax(income)
-print(incomeLeftOverAfterTaxs)
+incomeTax(income);
+print(incomeLeftOverAfterTaxs);
 
 
