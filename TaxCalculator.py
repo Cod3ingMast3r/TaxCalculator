@@ -1,10 +1,51 @@
+import numpy as np;
+import datetime as dt;
 global income;
+global currentYear;
 #currently assumed not head of househod and filing single and NOT self employed
 #Planning to add the following
-    #write if statements for week vs month vs quarter vs hour vs year incomes
     #assuming not head of houshold, later add option for asking if they are head of household
     #add ability to update standard deduction maybe using API or webscrapper on google
-income = float(input("Put yearly total income here: "));
+currentYear = 2021;
+
+
+
+
+
+
+yearOrHour = input("Income By year or Hour: ");
+print( yearOrHour.capitalize());
+
+if yearOrHour.capitalize() == "Year":
+    income = float(input("Put yearly total income here: "));
+elif yearOrHour.capitalize() == "Hour":
+    income = float(input("Put hourly total income here: "));
+    hoursPerWeek = float(input("Put hours per week here: "));
+    setTime = input("Will there be a fixed start and end date? (yes or no): ");
+    if setTime.capitalize() == "Yes":
+        startYear = int(input("Input start year here (ie: 2021): "));
+        startMonth = int(input("Input start month here (ie: Jan so, 1): "));
+        startDay = int(input("Input start day here (ie: 1): "));
+        endYear = int(input("Input end date year (ie: 2021): "));
+        endMonth = int(input("Input end month here (ie: Jan so, 1): "));
+        endDay = int(input("Input end day here (ie: 1): "));
+        startDate = dt.date(startYear, startMonth, startDay);
+        endDate = dt.date(endYear, endMonth, endDay);
+        startToEndBusinessDays = np.busday_count(startDate, endDate)
+        print("Days that will be worked:" + str(startToEndBusinessDays));
+        income *= (hoursPerWeek/5)*startToEndBusinessDays;
+    elif setTime.capitalize() == "No":
+        print("Since not set time, the hourly income is multiplied by every workday in current year")
+        startDate = dt.date(currentYear, 1, 1);
+        endDate = dt.date(currentYear, 12, 31);
+        startToEndBusinessDays = np.busday_count(startDate, endDate)
+        print("Days that will be worked in current Year without sick or vacation or PTO:" + str(startToEndBusinessDays));
+        income *= (hoursPerWeek/5)*startToEndBusinessDays;
+        exit;
+    else: 
+        print("error, yes or no value may have been enetered incorrectly");
+
+else: print("Error, enter hour or year only")
 
 def incomeTax(income):
     if income < 0:
@@ -68,3 +109,5 @@ def incomeTax(income):
     ###################### FINAL CALCULATIONS END ################################################################################
 incomeTax(income)
 print(incomeLeftOverAfterTaxs)
+
+
